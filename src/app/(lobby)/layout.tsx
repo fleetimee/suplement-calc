@@ -1,3 +1,4 @@
+import { FloatingActionButton } from "@/components/floating-action-button";
 import MobileNavbar from "@/components/mobile-navbar";
 import { NavigationSidebar } from "@/components/side-navbar";
 import React from "react";
@@ -18,6 +19,8 @@ export default function IndexLayout({ children }: IndexLayoutProps) {
           {children}
         </main>
       </div>
+
+      <FloatingActionButton />
     </div>
   );
 }
