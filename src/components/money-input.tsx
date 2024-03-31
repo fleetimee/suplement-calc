@@ -57,7 +57,7 @@ export default function MoneyInput(props: TextInputProps) {
             <FormControl>
               <Input
                 placeholder={props.placeholder}
-                type="text"
+                type="tel"
                 {...field}
                 onChange={(ev) => {
                   setValue(ev.target.value);

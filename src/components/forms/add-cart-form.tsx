@@ -98,7 +98,7 @@ export function AddCartForm({ className }: AddCartFormProps) {
                   <Input
                     {...field}
                     id="quantity"
-                    type="number"
+                    type="tel"
                     value={Number(field.value)}
                   />
                 </FormControl>
