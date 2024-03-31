@@ -16,3 +16,10 @@ export function generateTodayDate() {
 
   return today.toLocaleDateString("id-ID", options);
 }
+
+export function formatToIDR(number: number): string {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  }).format(number);
+}

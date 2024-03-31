@@ -32,7 +32,7 @@ interface DrawerDialogDemoProps {
   children: React.ReactNode;
 }
 
-export function DrawerDialogDemo({ children }: DrawerDialogDemoProps) {
+export function AddCartDialog({ children }: DrawerDialogDemoProps) {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -42,9 +42,9 @@ export function DrawerDialogDemo({ children }: DrawerDialogDemoProps) {
         <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
+            <DialogTitle>Tambah barang</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when youre done.
+              Tambahkan barang yang ingin anda beli.
             </DialogDescription>
           </DialogHeader>
           <AddCartForm className="px-0" />
@@ -58,9 +58,9 @@ export function DrawerDialogDemo({ children }: DrawerDialogDemoProps) {
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle>Edit profile</DrawerTitle>
+          <DrawerTitle>Tambah Barang</DrawerTitle>
           <DrawerDescription>
-            Make changes to your profile here. Click save when youre done.
+            Tambahkan barang yang ingin anda beli.
           </DrawerDescription>
         </DrawerHeader>
         <AddCartForm className="px-4" />

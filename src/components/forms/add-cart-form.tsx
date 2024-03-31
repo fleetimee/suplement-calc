@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
 import MoneyInput from "../money-input";
+import { Button } from "../ui/button";
 
 type Inputs = z.infer<typeof addCartSchema>;
 
@@ -80,6 +81,7 @@ export function AddCartForm({ className }: AddCartFormProps) {
                 <FormControl>
                   <Input {...field} id="name" placeholder="Ultra Milk 10ml" />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -93,8 +95,14 @@ export function AddCartForm({ className }: AddCartFormProps) {
               <FormItem>
                 <FormLabel htmlFor="quantity">Jumlah</FormLabel>
                 <FormControl>
-                  <Input {...field} id="quantity" type="number" />
+                  <Input
+                    {...field}
+                    id="quantity"
+                    type="number"
+                    value={Number(field.value)}
+                  />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -133,6 +141,8 @@ export function AddCartForm({ className }: AddCartFormProps) {
               </FormItem>
             )}
           />
+
+          <Button type="submit">Save changes</Button>
         </div>
       </form>
     </Form>

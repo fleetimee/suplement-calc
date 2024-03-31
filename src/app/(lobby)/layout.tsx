@@ -1,4 +1,4 @@
-import { DrawerDialogDemo } from "@/components/drawer-desktop";
+import { AddCartDialog } from "@/components/drawer-desktop";
 import { FloatingActionButton } from "@/components/floating-action-button";
 import { MobileNavbar } from "@/components/mobile-navbar";
 import { NavigationSidebar } from "@/components/side-navbar";
@@ -21,9 +21,9 @@ export default function IndexLayout({ children }: IndexLayoutProps) {
             {children}
           </main>
         </div>
-        <DrawerDialogDemo>
+        <AddCartDialog>
           <FloatingActionButton />
-        </DrawerDialogDemo>
+        </AddCartDialog>
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { formatToIDR } from "@/lib/utils";
 import { useCartStore } from "@/providers/cart-store-provider";
 
 export function ListSection() {
@@ -32,15 +33,19 @@ export function ListSection() {
             <TableRow key={item.id}>
               <TableCell className="font-medium">{item.name}</TableCell>
               <TableCell>{item.quantity}</TableCell>
-              <TableCell>{item.price}</TableCell>
-              <TableCell className="text-right">{item.price}</TableCell>
+              <TableCell>{formatToIDR(item.price)}</TableCell>
+              <TableCell className="text-right">
+                {formatToIDR(item.price)}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
         <TableFooter>
           <TableRow>
             <TableCell colSpan={3}>Total</TableCell>
-            <TableCell className="text-right">$2,500.00</TableCell>
+            <TableCell className="text-right">
+              {formatToIDR(items.reduce((acc, item) => acc + item.price, 0))}
+            </TableCell>
           </TableRow>
         </TableFooter>
       </Table>
