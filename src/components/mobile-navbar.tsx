@@ -12,7 +12,6 @@ import {
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "./ui/button";
-import { Card, CardTitle } from "./ui/card";
 import { useCartStore } from "@/providers/cart-store-provider";
 
 export function MobileNavbar() {
@@ -75,8 +74,8 @@ export function MobileNavbar() {
         </SheetContent>
       </Sheet>
 
-      <h1 className="text-lg font-semibold tracking-tight text-center sm:text-left">
-        Rp. {total} / Rp. 300.000
+      <h1 className="text-lg font-semibold tracking-tight text-center sm:text-right">
+        Rp. {new Intl.NumberFormat("id-ID").format(total)} / Rp. 300.000
       </h1>
     </header>
   );
