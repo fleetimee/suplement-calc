@@ -26,6 +26,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCartStore } from "@/providers/cart-store-provider";
+import { AddCartForm } from "./forms/add-cart-form";
 
 interface DrawerDialogDemoProps {
   children: React.ReactNode;
@@ -46,7 +47,7 @@ export function DrawerDialogDemo({ children }: DrawerDialogDemoProps) {
               Make changes to your profile here. Click save when youre done.
             </DialogDescription>
           </DialogHeader>
-          <ProfileForm />
+          <AddCartForm className="px-0" />
         </DialogContent>
       </Dialog>
     );
@@ -62,7 +63,7 @@ export function DrawerDialogDemo({ children }: DrawerDialogDemoProps) {
             Make changes to your profile here. Click save when youre done.
           </DrawerDescription>
         </DrawerHeader>
-        <ProfileForm className="px-4" />
+        <AddCartForm className="px-4" />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
