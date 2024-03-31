@@ -2,6 +2,7 @@ import { createStore } from "zustand";
 
 export type CartItem = {
   id: string;
+  name: string;
   price: number;
   quantity: number;
 };

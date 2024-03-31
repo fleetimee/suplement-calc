@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useCartStore } from "@/providers/cart-store-provider";
 
 interface DrawerDialogDemoProps {
   children: React.ReactNode;
@@ -73,6 +74,8 @@ export function DrawerDialogDemo({ children }: DrawerDialogDemoProps) {
 }
 
 function ProfileForm({ className }: React.ComponentProps<"form">) {
+  const { addItem } = useCartStore((state) => state);
+
   return (
     <form className={cn("grid items-start gap-4", className)}>
       <div className="grid gap-2">
@@ -83,7 +86,14 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
         <Label htmlFor="username">Username</Label>
         <Input id="username" defaultValue="@shadcn" />
       </div>
-      <Button type="submit">Save changes</Button>
+      <Button
+        type="button"
+        onClick={() =>
+          void addItem({ id: "1", name: "Item 1", price: 100, quantity: 1 })
+        }
+      >
+        Save changes
+      </Button>
     </form>
   );
 }

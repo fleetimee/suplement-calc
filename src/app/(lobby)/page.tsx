@@ -1,7 +1,6 @@
-import { Badge } from "@/components/ui/badge";
+"use client";
+
 import { Button } from "@/components/ui/button";
-import { generateTodayDate } from "@/lib/utils";
-import { ChevronLeft, ShoppingCart } from "lucide-react";
 
 import {
   Table,
@@ -13,49 +12,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useCartStore } from "@/providers/cart-store-provider";
 
 export default function IndexPage() {
-  const groceries = [
-    {
-      id: 1,
-      name: "Sereal",
-      price: 20000,
-      quantity: 1,
-    },
-    {
-      id: 2,
-      name: "Susu",
-      price: 30000,
-      quantity: 1,
-    },
-    {
-      id: 3,
-      name: "Buah",
-      price: 50000,
-      quantity: 1,
-    },
-  ];
-
-  const items = [
-    {
-      id: 1,
-      name: "Sereal Coco Crunch 500gr",
-      price: 20000,
-      quantity: 1,
-    },
-    {
-      id: 2,
-      name: "Susu",
-      price: 30000,
-      quantity: 1,
-    },
-    {
-      id: 3,
-      name: "Buah",
-      price: 50000,
-      quantity: 1,
-    },
-  ];
+  const { items, addItem } = useCartStore((state) => state);
 
   return (
     <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
@@ -78,7 +38,19 @@ export default function IndexPage() {
           <Button variant="outline" size="sm" className="hidden">
             Discard
           </Button>
-          <Button size="sm">Print</Button>
+          <Button
+            size="sm"
+            onClick={() =>
+              void addItem({
+                id: "1",
+                name: "Item 1",
+                price: 100,
+                quantity: 1,
+              })
+            }
+          >
+            Print
+          </Button>
         </div>
       </div>
 

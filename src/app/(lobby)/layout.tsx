@@ -1,6 +1,6 @@
 import { DrawerDialogDemo } from "@/components/drawer-desktop";
 import { FloatingActionButton } from "@/components/floating-action-button";
-import MobileNavbar from "@/components/mobile-navbar";
+import { MobileNavbar } from "@/components/mobile-navbar";
 import { NavigationSidebar } from "@/components/side-navbar";
 import React from "react";
 

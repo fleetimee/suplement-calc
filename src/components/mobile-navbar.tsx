@@ -12,8 +12,12 @@ import {
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "./ui/button";
+import { Card, CardTitle } from "./ui/card";
+import { useCartStore } from "@/providers/cart-store-provider";
 
-export default function MobileNavbar() {
+export function MobileNavbar() {
+  const { total } = useCartStore((state) => state);
+
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 justify-between border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
       <Sheet>
@@ -72,7 +76,7 @@ export default function MobileNavbar() {
       </Sheet>
 
       <h1 className="text-lg font-semibold tracking-tight text-center sm:text-left">
-        Rp. 0 / Rp. 300.000
+        Rp. {total} / Rp. 300.000
       </h1>
     </header>
   );
