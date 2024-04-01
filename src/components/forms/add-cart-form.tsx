@@ -55,15 +55,15 @@ export function AddCartForm({ className }: AddCartFormProps) {
     const threeQuarters = 300000 * 0.75;
 
     if (total >= half && total < threeQuarters) {
-      toast("Warning", {
+      toast.warning("Warning", {
         description: "Total is more than half of the limit.",
       });
     } else if (total >= threeQuarters && total < 300000) {
-      toast("Warning", {
+      toast.warning("Warning", {
         description: "Total is more than 75% of the limit.",
       });
     } else if (total >= 300000) {
-      toast("Warning", {
+      toast.warning("Warning", {
         description: "Total has reached the limit.",
       });
     }
@@ -80,8 +80,9 @@ export function AddCartForm({ className }: AddCartFormProps) {
       const newTotal = total + data.total;
 
       if (newTotal >= 300000) {
-        toast("Warning", {
-          description: "Total has reached the limit. Cannot add more items.",
+        toast.error("Error", {
+          description:
+            "Harga total sudah melebihi batas maksimal. Silahkan kurangi jumlah item.",
         });
         return;
       }
@@ -92,11 +93,11 @@ export function AddCartForm({ className }: AddCartFormProps) {
       const threeQuarters = 300000 * 0.75;
 
       if (newTotal >= half && newTotal < threeQuarters) {
-        toast("Warning", {
+        toast.warning("Warning", {
           description: "Total is more than half of the limit.",
         });
       } else if (newTotal >= threeQuarters && newTotal < 300000) {
-        toast("Warning", {
+        toast.warning("Warning", {
           description: "Total is more than 75% of the limit.",
         });
       }
@@ -154,7 +155,7 @@ export function AddCartForm({ className }: AddCartFormProps) {
                   value={field.value}
                   onChange={(e) => {
                     const value =
-                      e.target.value === "" ? 0 : Number(e.target.value);
+                      e.target.value === "" ? "" : Number(e.target.value);
                     field.onChange(value);
                   }}
                 />
@@ -198,7 +199,7 @@ export function AddCartForm({ className }: AddCartFormProps) {
             )}
           />
 
-          <Button type="submit">Save changes</Button>
+          <Button type="submit">Tambah</Button>
         </div>
       </form>
     </Form>

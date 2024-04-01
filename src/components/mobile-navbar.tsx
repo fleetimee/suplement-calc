@@ -42,7 +42,6 @@ export function MobileNavbar() {
 
   const progress = (total / 300000) * 100;
 
-  // Check current route and set active class
   const path = usePathname();
 
   const [open, setOpen] = useState(false);

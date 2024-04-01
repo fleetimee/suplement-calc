@@ -62,7 +62,7 @@ export function AddCartDialog({ children }: DrawerDialogDemoProps) {
         <AddCartForm className="px-4" />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">Batal</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

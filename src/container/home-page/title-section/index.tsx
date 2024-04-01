@@ -4,9 +4,9 @@ export function TitleSection() {
   return (
     <div className="flex items-start gap-4">
       <div className="flex flex-col items-start gap-1  ">
-        <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
+        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           SuppleTrack
-        </h1>
+        </h3>
         <p
           className="text-sm text-muted-foreground
             sm:grow-0 sm:shrink-0 sm:mt-0 sm:mb-2 sm:text-sm sm:text-left sm:leading-5 sm:tracking-tight sm:text-muted-foreground max-w-[36rem]
