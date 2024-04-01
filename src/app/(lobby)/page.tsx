@@ -1,7 +1,5 @@
 "use client";
 
-import { AddCartDialog } from "@/components/drawer-desktop";
-import { FloatingActionButton } from "@/components/floating-action-button";
 import { ListSection } from "@/container/home-page/list-section";
 import { TitleSection } from "@/container/home-page/title-section";
 

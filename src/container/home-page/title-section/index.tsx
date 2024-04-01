@@ -7,11 +7,7 @@ export function TitleSection() {
         <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           SuppleTrack
         </h3>
-        <p
-          className="text-sm text-muted-foreground
-            sm:grow-0 sm:shrink-0 sm:mt-0 sm:mb-2 sm:text-sm sm:text-left sm:leading-5 sm:tracking-tight sm:text-muted-foreground max-w-[36rem]
-          "
-        >
+        <p className="leading-7 [&:not(:first-child)]:mt-6">
           List semua kebutuhan supplemen bulananmu disini, mulai dari sereal,
           susu, dan buah. maksimal Rp. 300.000
         </p>
