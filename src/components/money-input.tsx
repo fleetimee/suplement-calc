@@ -17,7 +17,6 @@ type TextInputProps = {
   placeholder: string;
 };
 
-// Brazilian currency config
 const moneyFormatter = Intl.NumberFormat("id-ID", {
   currency: "IDR",
   currencyDisplay: "symbol",
@@ -27,7 +26,7 @@ const moneyFormatter = Intl.NumberFormat("id-ID", {
   maximumFractionDigits: 2,
 });
 
-export default function MoneyInput(props: TextInputProps) {
+export function MoneyInput(props: TextInputProps) {
   const initialValue = props.form.getValues()[props.name]
     ? moneyFormatter.format(props.form.getValues()[props.name])
     : "";

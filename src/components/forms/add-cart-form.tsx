@@ -15,9 +15,11 @@ import {
   FormMessage,
 } from "../ui/form";
 import { cn } from "@/lib/utils";
-import { Input } from "../ui/input";
-import MoneyInput from "../money-input";
-import { Button } from "../ui/button";
+import { Input } from "@/components/ui/input";
+import { MoneyInput } from "@/components/money-input";
+import { Button } from "@/components/ui/button";
+
+import { toast } from "sonner";
 
 type Inputs = z.infer<typeof addCartSchema>;
 
@@ -28,26 +30,18 @@ interface AddCartFormProps {
 export function AddCartForm({ className }: AddCartFormProps) {
   const id = useId();
 
-  const { addItem } = useCartStore((state) => state);
+  const { addItem, total } = useCartStore((state) => state);
 
   const form = useForm<Inputs>({
     resolver: zodResolver(addCartSchema),
     defaultValues: {
       id: id,
       name: "",
-      quantity: 1,
+      quantity: 0,
       price: 0,
       total: 0,
     },
   });
-
-  function onSubmit(data: Inputs) {
-    try {
-      addItem(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   function totalItems() {
     const quantity = form.watch("quantity");
@@ -56,12 +50,73 @@ export function AddCartForm({ className }: AddCartFormProps) {
     const total = quantity * price;
 
     form.setValue("total", total);
+
+    const half = 300000 / 2;
+    const threeQuarters = 300000 * 0.75;
+
+    if (total >= half && total < threeQuarters) {
+      toast("Warning", {
+        description: "Total is more than half of the limit.",
+      });
+    } else if (total >= threeQuarters && total < 300000) {
+      toast("Warning", {
+        description: "Total is more than 75% of the limit.",
+      });
+    } else if (total >= 300000) {
+      toast("Warning", {
+        description: "Total has reached the limit.",
+      });
+    }
   }
 
   useEffect(() => {
     totalItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.watch("quantity"), form.watch("price")]);
+
+  function onSubmit(data: Inputs) {
+    try {
+      // Addition total now plus new total and then check if it's more than 300000
+      const newTotal = total + data.total;
+
+      if (newTotal >= 300000) {
+        toast("Warning", {
+          description: "Total has reached the limit. Cannot add more items.",
+        });
+        return;
+      }
+
+      addItem(data);
+
+      const half = 300000 / 2;
+      const threeQuarters = 300000 * 0.75;
+
+      if (newTotal >= half && newTotal < threeQuarters) {
+        toast("Warning", {
+          description: "Total is more than half of the limit.",
+        });
+      } else if (newTotal >= threeQuarters && newTotal < 300000) {
+        toast("Warning", {
+          description: "Total is more than 75% of the limit.",
+        });
+      }
+
+      toast("Success", {
+        description: "Item berhasil ditambahkan ke dalam list.",
+        action: {
+          label: "Tutup",
+          onClick: () => {
+            console.log("Toast closed");
+          },
+        },
+      });
+
+      // Reset form
+      form.reset();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <Form {...form}>
@@ -85,26 +140,29 @@ export function AddCartForm({ className }: AddCartFormProps) {
           />
         </div>
 
-        <div className="grid gap-2">
-          <FormField
-            control={form.control}
-            name="quantity"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel htmlFor="quantity">Jumlah</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    id="quantity"
-                    type="tel"
-                    value={Number(field.value)}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+        <FormField
+          control={form.control}
+          name="quantity"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="quantity">Jumlah</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  id="quantity"
+                  type="number"
+                  value={field.value}
+                  onChange={(e) => {
+                    const value =
+                      e.target.value === "" ? 0 : Number(e.target.value);
+                    field.onChange(value);
+                  }}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <div className="grid gap-2">
           <MoneyInput

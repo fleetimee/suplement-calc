@@ -16,10 +16,6 @@ import { useCartStore } from "@/providers/cart-store-provider";
 export function ListSection() {
   const { items } = useCartStore((state) => state);
 
-  console.log(items.length);
-
-  console.log(items);
-
   return (
     <div className="flex flex-col gap-4">
       {items.length > 0 ? (
@@ -36,17 +32,6 @@ export function ListSection() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {/* {items.map((item) => (
-            <TableRow key={item.id}>
-              <TableCell className="font-medium">{item.name}</TableCell>
-              <TableCell>{item.quantity}</TableCell>
-              <TableCell>{formatToIDR(item.price)}</TableCell>
-              <TableCell className="text-right">
-                {formatToIDR(item.price)}
-              </TableCell>
-            </TableRow>
-          ))} */}
-
             {items.length > 0 ? (
               items.map((item) => (
                 <TableRow key={item.id}>
@@ -54,7 +39,7 @@ export function ListSection() {
                   <TableCell>{item.quantity}</TableCell>
                   <TableCell>{formatToIDR(item.price)}</TableCell>
                   <TableCell className="text-right">
-                    {formatToIDR(item.price)}
+                    {formatToIDR(item.total)}
                   </TableCell>
                 </TableRow>
               ))
@@ -70,7 +55,9 @@ export function ListSection() {
             <TableRow>
               <TableCell colSpan={3}>Total</TableCell>
               <TableCell className="text-right">
-                {formatToIDR(items.reduce((acc, item) => acc + item.price, 0))}
+                {formatToIDR(
+                  items.reduce((total, item) => total + item.total, 0)
+                )}
               </TableCell>
             </TableRow>
           </TableFooter>

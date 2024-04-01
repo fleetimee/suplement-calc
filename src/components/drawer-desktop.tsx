@@ -73,28 +73,3 @@ export function AddCartDialog({ children }: DrawerDialogDemoProps) {
     </Drawer>
   );
 }
-
-function ProfileForm({ className }: React.ComponentProps<"form">) {
-  const { addItem } = useCartStore((state) => state);
-
-  return (
-    <form className={cn("grid items-start gap-4", className)}>
-      <div className="grid gap-2">
-        <Label htmlFor="email">Email</Label>
-        <Input type="email" id="email" defaultValue="shadcn@example.com" />
-      </div>
-      <div className="grid gap-2">
-        <Label htmlFor="username">Username</Label>
-        <Input id="username" defaultValue="@shadcn" />
-      </div>
-      <Button
-        type="button"
-        onClick={() =>
-          void addItem({ id: "1", name: "Item 1", price: 100, quantity: 1 })
-        }
-      >
-        Save changes
-      </Button>
-    </form>
-  );
-}

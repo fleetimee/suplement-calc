@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { CartStoreProvider } from "@/providers/cart-store-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
         <TooltipProvider>
           <CartStoreProvider>{children}</CartStoreProvider>
         </TooltipProvider>
+        <Toaster />
       </body>
     </html>
   );
