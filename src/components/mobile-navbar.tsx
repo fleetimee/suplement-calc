@@ -12,7 +12,12 @@ import {
   Users2,
 } from "lucide-react";
 import Link from "next/link";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetClose,
+} from "@/components/ui/sheet";
 import { Button } from "./ui/button";
 import { useCartStore } from "@/providers/cart-store-provider";
 import { cn } from "@/lib/utils";
@@ -63,18 +68,24 @@ export function MobileNavbar() {
             </Link>
 
             {routePaths.map((route) => (
-              <Link
+              <SheetClose
                 key={route.path}
-                href={route.path}
-                className={cn("flex items-center gap-4 px-2.5", {
-                  "text-foreground": path === route.path,
-                  "text-muted-foreground hover:text-foreground":
-                    path !== route.path,
-                })}
+                asChild
+                onClick={() => setOpen(false)}
               >
-                {route.icon}
-                {route.name}
-              </Link>
+                <Link
+                  key={route.path}
+                  href={route.path}
+                  className={cn("flex items-center gap-4 px-2.5", {
+                    "text-foreground": path === route.path,
+                    "text-muted-foreground hover:text-foreground":
+                      path !== route.path,
+                  })}
+                >
+                  {route.icon}
+                  {route.name}
+                </Link>
+              </SheetClose>
             ))}
           </nav>
         </SheetContent>
