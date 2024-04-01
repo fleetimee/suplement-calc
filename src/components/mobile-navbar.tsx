@@ -89,7 +89,7 @@ export function MobileNavbar() {
         Rp. {new Intl.NumberFormat("id-ID").format(total)}
       </h1>
 
-      <Progress value={progress} className="w-[60%]" />
+      <Progress value={progress} className="w-[50%]" />
     </header>
   );
 }

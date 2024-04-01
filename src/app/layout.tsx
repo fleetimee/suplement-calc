@@ -32,7 +32,7 @@ export default function RootLayout({
         <TooltipProvider>
           <CartStoreProvider>{children}</CartStoreProvider>
         </TooltipProvider>
-        <Toaster />
+        <Toaster position="top-center" />
       </body>
     </html>
   );
