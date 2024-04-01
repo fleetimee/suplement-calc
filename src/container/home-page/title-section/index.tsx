@@ -1,9 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { useCartStore } from "@/providers/cart-store-provider";
 
 export function TitleSection() {
-  const { addItem } = useCartStore((state) => state);
-
   return (
     <div className="flex items-start gap-4">
       <div className="flex flex-col items-start gap-1  ">
@@ -24,19 +21,7 @@ export function TitleSection() {
         <Button variant="outline" size="sm" className="hidden">
           Discard
         </Button>
-        <Button
-          size="sm"
-          onClick={() =>
-            void addItem({
-              id: "1",
-              name: "Item 1",
-              price: 100,
-              quantity: 1,
-            })
-          }
-        >
-          Print
-        </Button>
+        <Button size="sm">Print</Button>
       </div>
     </div>
   );
