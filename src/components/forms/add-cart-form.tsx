@@ -101,7 +101,7 @@ export function AddCartForm({ className }: AddCartFormProps) {
         });
       }
 
-      toast("Success", {
+      toast.success("Success", {
         description: "Item berhasil ditambahkan ke dalam list.",
         action: {
           label: "Tutup",
