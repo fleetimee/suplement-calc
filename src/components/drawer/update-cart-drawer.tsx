@@ -22,44 +22,57 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { AddCartForm } from "./forms/add-cart-form";
+import { UpdateCartForm, UpdateInputs } from "../forms/update-cart-form";
 
-interface DrawerDialogDemoProps {
+interface UpdateCartDrawerProps {
   children: React.ReactNode;
+  item: UpdateInputs;
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
-export function AddCartDialog({ children }: DrawerDialogDemoProps) {
-  const [open, setOpen] = React.useState(false);
+export function UpdateCartDrawer({
+  children,
+  item,
+  isOpen,
+  onOpenChange,
+}: UpdateCartDrawerProps) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>{children}</DialogTrigger>
+      <Dialog
+        open={isOpen}
+        onOpenChange={() => {
+          console.log("onOpenChange", onOpenChange);
+          onOpenChange(!isOpen);
+        }}
+      >
+        <DialogTrigger>{children}</DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Tambah barang</DialogTitle>
+            <DialogTitle>Update Barang</DialogTitle>
             <DialogDescription>
-              Tambahkan barang yang ingin anda beli.
+              Perbarui barang yang ada di dalam list.
             </DialogDescription>
           </DialogHeader>
-          <AddCartForm className="px-0" />
+          <UpdateCartForm className="px-0" item={item} />
         </DialogContent>
       </Dialog>
     );
   }
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger asChild>{children}</DrawerTrigger>
+    <Drawer open={isOpen} onOpenChange={onOpenChange}>
+      <DrawerTrigger>{children}</DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle>Tambah Barang</DrawerTitle>
+          <DrawerTitle>Update Barang</DrawerTitle>
           <DrawerDescription>
-            Tambahkan barang yang ingin anda beli.
+            Perbarui barang yang ada di dalam list.
           </DrawerDescription>
         </DrawerHeader>
-        <AddCartForm className="px-4" />
+        <UpdateCartForm className="px-4" item={item} />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Batal</Button>

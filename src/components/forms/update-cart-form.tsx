@@ -1,11 +1,13 @@
 "use client";
 
-import { addCartSchema } from "@/schema/add-cart";
-import { useEffect, useId } from "react";
+import { useCartStore } from "@/providers/cart-store-provider";
+import { updateCartSchema } from "@/schema/add-cart";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useCartStore } from "@/providers/cart-store-provider";
+
+import { toast } from "sonner";
+
 import {
   Form,
   FormControl,
@@ -17,37 +19,27 @@ import {
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { MoneyInput } from "@/components/money-input";
-import { Button } from "@/components/ui/button";
+import { Button } from "../ui/button";
+import { useEffect } from "react";
 
-import { toast } from "sonner";
+export type UpdateInputs = z.infer<typeof updateCartSchema>;
 
-type Inputs = z.infer<typeof addCartSchema>;
-
-interface AddCartFormProps {
+interface UpdateCartFormProps {
   className: React.ComponentProps<"form">["className"];
+  item: UpdateInputs;
 }
 
-function generateUuid() {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-    var r = (Math.random() * 16) | 0,
-      v = c == "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
+export function UpdateCartForm({ className, item }: UpdateCartFormProps) {
+  const { updateItem, total } = useCartStore((state) => state);
 
-export function AddCartForm({ className }: AddCartFormProps) {
-  const id = generateUuid();
-
-  const { addItem, total } = useCartStore((state) => state);
-
-  const form = useForm<Inputs>({
-    resolver: zodResolver(addCartSchema),
+  const form = useForm<UpdateInputs>({
+    resolver: zodResolver(updateCartSchema),
     defaultValues: {
-      id: id,
-      name: "",
-      quantity: 0,
-      price: 0,
-      total: 0,
+      id: item.id,
+      name: item.name,
+      quantity: item.quantity,
+      price: item.price,
+      total: item.total,
     },
   });
 
@@ -61,20 +53,6 @@ export function AddCartForm({ className }: AddCartFormProps) {
 
     const half = 300000 / 2;
     const threeQuarters = 300000 * 0.75;
-
-    if (total >= half && total < threeQuarters) {
-      toast.warning("Warning", {
-        description: "Total is more than half of the limit.",
-      });
-    } else if (total >= threeQuarters && total < 300000) {
-      toast.warning("Warning", {
-        description: "Total is more than 75% of the limit.",
-      });
-    } else if (total >= 300000) {
-      toast.warning("Warning", {
-        description: "Total has reached the limit.",
-      });
-    }
   }
 
   useEffect(() => {
@@ -82,11 +60,12 @@ export function AddCartForm({ className }: AddCartFormProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.watch("quantity"), form.watch("price")]);
 
-  function onSubmit(data: Inputs) {
+  function onSubmit(data: UpdateInputs) {
     try {
-      // Addition total now plus new total and then check if it's more than 300000
+      // Calculate the new total
       const newTotal = total + data.total;
 
+      // Check if the new total exceeds the limit
       if (newTotal >= 300000) {
         toast.error("Error", {
           description:
@@ -95,23 +74,12 @@ export function AddCartForm({ className }: AddCartFormProps) {
         return;
       }
 
-      addItem(data);
+      // Update the item
+      updateItem(data.id, data);
 
-      const half = 300000 / 2;
-      const threeQuarters = 300000 * 0.75;
-
-      if (newTotal >= half && newTotal < threeQuarters) {
-        toast.warning("Warning", {
-          description: "Total is more than half of the limit.",
-        });
-      } else if (newTotal >= threeQuarters && newTotal < 300000) {
-        toast.warning("Warning", {
-          description: "Total is more than 75% of the limit.",
-        });
-      }
-
+      // Show a success message
       toast.success("Success", {
-        description: "Item berhasil ditambahkan ke dalam list.",
+        description: "Item berhasil diperbarui dalam list.",
         action: {
           label: "Tutup",
           onClick: () => {
@@ -207,7 +175,7 @@ export function AddCartForm({ className }: AddCartFormProps) {
             )}
           />
 
-          <Button type="submit">Tambah</Button>
+          <Button type="submit">Update</Button>
         </div>
       </form>
     </Form>

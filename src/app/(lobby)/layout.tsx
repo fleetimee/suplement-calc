@@ -1,7 +1,6 @@
-import { AddCartDialog } from "@/components/drawer-desktop";
+import { AddCartDrawer } from "@/components/drawer/add-cart-drawer";
 import { FloatingActionButton } from "@/components/floating-action-button";
 import { MobileNavbar } from "@/components/mobile-navbar";
-import { NavigationSidebar } from "@/components/side-navbar";
 import React from "react";
 
 interface IndexLayoutProps {
@@ -21,9 +20,9 @@ export default function IndexLayout({ children }: IndexLayoutProps) {
             {children}
           </main>
         </div>
-        <AddCartDialog>
+        <AddCartDrawer>
           <FloatingActionButton />
-        </AddCartDialog>
+        </AddCartDrawer>
       </div>
     </div>
   );

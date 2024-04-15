@@ -15,6 +15,7 @@ export type CartState = {
 
 export type CartActions = {
   addItem: (item: CartItem) => void;
+  updateItem: (id: string, item: Partial<CartItem>) => void;
   removeItem: (id: string) => void;
 };
 
@@ -36,6 +37,17 @@ export const createCartStore = (initState: CartState = defaultInitState) => {
     addItem: (item) =>
       set((state) => {
         const newItems = [...state.items, item];
+        const newTotal = newItems.reduce(
+          (total, item) => total + item.price * item.quantity,
+          0
+        );
+        return { items: newItems, total: newTotal };
+      }),
+    updateItem: (id, item) =>
+      set((state) => {
+        const newItems = state.items.map((oldItem) =>
+          oldItem.id === id ? { ...oldItem, ...item } : oldItem
+        );
         const newTotal = newItems.reduce(
           (total, item) => total + item.price * item.quantity,
           0
